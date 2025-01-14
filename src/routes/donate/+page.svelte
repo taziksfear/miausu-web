@@ -7,7 +7,7 @@
 
 	// Define your Ko-fi links
 	const tazikKoFiLink = 'https://ko-fi.com/tazik';
-	const noemiKoFiLink = 'https://ko-fi.com/noemi';
+	const noemiKoFiLink = 'https://ko-fi.com/qwqnoemi';
 </script>
 
 <svelte:head>
