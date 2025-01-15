@@ -36,7 +36,7 @@
 					alt="Ko-fi"
 					class="w-32 h-32 mb-4"
 				/>
-				<h2 class="text-xl font-semibold text-white">{__('Support Tazik', $userLanguage)}</h2>
+				<h2 class="text-xl font-semibold text-white">{__('Support tazik', $userLanguage)}</h2>
 				<p class="text-sm text-white/80 mt-2">
 					{__('Gimme money pls~', $userLanguage)}
 				</p>
