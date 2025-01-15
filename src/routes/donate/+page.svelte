@@ -56,9 +56,9 @@
 					alt="Ko-fi"
 					class="w-32 h-32 mb-4"
 				/>
-				<h2 class="text-xl font-semibold text-white">{__('Support Noemi', $userLanguage)}</h2>
+				<h2 class="text-xl font-semibold text-white">{__('Support noemi', $userLanguage)}</h2>
 				<p class="text-sm text-white/80 mt-2">
-					{__('Buy Noemi a coffee!', $userLanguage)}
+					{__('nya~ feel free to donate if you want to support us/me :3', $userLanguage)}
 				</p>
 			</a>
 		</div>
