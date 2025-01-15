@@ -14,7 +14,7 @@
 	<title>{appName} :: Donate</title>
 </svelte:head>
 
-<div class="w-screen h-screen flex flex-col justify-center items-center bg-gradient-to-r from-[#004749] to-[#450046]">
+<div class="w-screen h-screen flex flex-col justify-center items-center bg-gradient-to-r from-[#333372] to-[#582854]">
 	<div class="text-center mb-10">
 		<h1 class="text-4xl font-bold text-white">{__('Support Us', $userLanguage)}</h1>
 		<p class="text-lg text-white/80 mt-2">

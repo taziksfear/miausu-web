@@ -170,8 +170,8 @@
 				out:fly={{ y: -15, duration: 200 }}
 			>
 					<div class="mx-auto border {showStickyNav
-						? 'mt-2 w-[82%] bg-gradient-to-r from-[#000000] to-[#2B2B2B] rounded-lg border-surface-450'
-						: 'w-[100%] bg-gradient-to-r from-[#141414] to-[#4F4F4F] border-surface-700'}  transition-all duration-700 z-[9999]"
+						? 'mt-2 w-[82%] bg-gradient-to-r from-[#000000] to-[#121212] rounded-lg border-surface-450'
+						: 'w-[100%] bg-gradient-to-r from-[#141414] to-[#121212] border-surface-700'}  transition-all duration-700 z-[9999]"
 						>
 					<div class="flex p-2 px-4 flex-row justify-between items-center gap-2">
 						<a class="text-xl uppercase cursor-pointer mr-12" on:click={() => goto('/')}

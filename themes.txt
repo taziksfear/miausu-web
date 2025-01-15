@@ -1,0 +1,9 @@
+themes name:
+    modern (light purple theme)
+    rocket (good one blue theme that works with custom bg color)
+    seafoam (high contrast blue, good for light mode)
+    wintry (good bit dark blue theme with grey that works with custom bg color)
+    vintage (yellow-orage-brown theme, works with custom bg color, but broking it a bit i think)
+    skeleton (goated theme that use your colors or it using our colors. pink-blue with green on main screen)
+    sahara (yellow-red theme, very high contrast, if you love red youll enjoy it)
+    hamlindigo (blue theme that works with custom bg color, very good for light mode)
