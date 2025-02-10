@@ -245,6 +245,12 @@
 													<a class="w-32 btn variant-filled-surface rounded-lg" href="/logout"
 														>{__('Logout', $userLanguage)}</a
 													>
+													<a class="w-32 btn variant-filled-surface rounded-lg" href="/settings"
+														>{__('Settings', $userLanguage)}</a
+													>
+													<a class="w-32 btn variant-filled-surface rounded-lg" href="/requests"
+														>{__('Requests', $userLanguage)}</a
+													>
 												{:else}
 													<button
 														class="w-32 btn variant-filled-surface rounded-lg"

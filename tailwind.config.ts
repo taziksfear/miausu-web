@@ -33,7 +33,7 @@ export default {
 			themes: {
 				preset: [
 					{
-						name: 'skeleton',
+						name: 'rocket',
 						enhancements: true
 					}
 				]
