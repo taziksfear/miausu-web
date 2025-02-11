@@ -8,6 +8,7 @@ const language: Language = {
 		Leaderboards: 'Ranglisten',
 		Donate: 'Spenden',
 		'Invalid username format': 'Ungültiger Benutzername',
+		'Themes': 'Themen',
 		'Settings': 'Einstellungen',
 		'Requests': 'Anfragen',
 		'Avatar updated successfully, ctrl + f5 to reload': 'Avatar erfolgreich aktualisiert, ctrl + f5 zum neu laden',

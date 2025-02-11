@@ -9,6 +9,7 @@ const language: Language = {
         Donate: '기부',
         'Save Changes': '변경 사항 저장',
         'Settings': '설정',
+        'Themes': '테마',
         'Requests': '리츠',
         'New Password': '새 비밀번호',
         'Current Password': '현재 비밀번호',

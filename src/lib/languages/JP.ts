@@ -8,6 +8,7 @@ const language: Language = {
         Leaderboards: 'ランキング',
         Donate: '寄付',
         'Save Changes': '変更を保存',
+        'Themes': 'テーマ',
         'Requsets': 'リクエスト',
         'Settings': '設定',
         'New Password': '新しいパスワード',

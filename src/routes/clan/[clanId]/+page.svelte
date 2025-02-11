@@ -3,6 +3,7 @@
 	import { __ } from '$lib/language';
 	import { userLanguage } from '$lib/storage';
 	import Frown from 'svelte-feathers/Frown.svelte';
+	import '$lib/styles/themes.css';
 
 	export let data;
 </script>

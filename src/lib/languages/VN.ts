@@ -8,6 +8,7 @@ const language: Language = {
         Leaderboards: 'Bảng xếp hạng',
         Donate: 'Quyên góp',
         'Save Changes': 'Lưu thay đổi',
+        'Themes': 'Câu hình',
         'Settings': 'Câu hình',
         'Requests': 'Yêu cầu',
         'New Password': 'Mật khẩu mới',

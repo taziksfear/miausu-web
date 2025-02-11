@@ -10,6 +10,7 @@ const language: Language = {
 		'Save Changes': 'Сохранить изменения',
 		'Settings': 'Настройки',
 		'Requests': 'Запросы',
+		'Themes': 'Темы',
 		'New Password': 'Новый пароль',
 		'Current Password': 'Текущий пароль',
 		'Change Password': 'Изменить пароль',

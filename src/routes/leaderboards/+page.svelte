@@ -8,6 +8,7 @@
 	import Leaderboard from '$lib/components/leaderboard.svelte';
 	import { __ } from '$lib/language';
 	import { userLanguage } from '$lib/storage';
+	import '$lib/styles/themes.css';
 
 	const modes = ['osu', 'taiko', 'catch', 'mania'];
 	const types = ['vanilla', 'relax', 'autopilot'];

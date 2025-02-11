@@ -3,6 +3,7 @@
 	import { env } from '$env/dynamic/public';
 	import { appName } from '$lib/env';
 	import { __ } from '$lib/language';
+	import '$lib/styles/themes.css';
 	import { userData, userLanguage } from '$lib/storage';
 	import {
 		ProgressRadial,

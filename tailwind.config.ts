@@ -11,18 +11,13 @@ export default {
 		join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
-		container: {
-			screens: {
-				sm: '640px',
-				md: '768px',
-				lg: '1024px',
-				xl: '1280px',
-				'2xl': '1280px'
-			}
-		},
 		extend: {
-			fontSize: {
-				'2xs': ['0.6rem', '0.85rem']
+			colors: {
+				// Use CSS variables for theme colors
+				primary: 'var(--color-primary)',
+				secondary: 'var(--color-secondary)',
+				background: 'var(--color-background)',
+				text: 'var(--color-text)'
 			}
 		}
 	},
@@ -32,10 +27,14 @@ export default {
 		skeleton({
 			themes: {
 				preset: [
-					{
-						name: 'rocket',
-						enhancements: true
-					}
+					{ name: 'skeleton', enhancements: true },
+					{ name: 'modern', enhancements: true },
+					{ name: 'rocket', enhancements: true },
+					{ name: 'wintry', enhancements: true },
+					{ name: 'vintage', enhancements: true },
+					{ name: 'seafoam', enhancements: true },
+					{ name: 'sahara', enhancements: true },
+					{ name: 'hamlindigo', enhancements: true }
 				]
 			}
 		})

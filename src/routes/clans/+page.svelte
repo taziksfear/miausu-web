@@ -8,6 +8,7 @@
 	import { __ } from '$lib/language';
 	import { userLanguage } from '$lib/storage';
 	import Clans from '$lib/components/clans.svelte';
+	import '$lib/styles/themes.css';
 
 	const modes = ['osu', 'taiko', 'catch', 'mania'];
 	const types = ['vanilla', 'relax', 'autopilot'];

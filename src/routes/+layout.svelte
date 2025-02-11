@@ -1,10 +1,10 @@
+<!-- src/routes/+layout.svelte -->
 <script lang="ts">
 	import '../app.postcss';
+	import '../styles/themes.css';
 	import {
 		AppShell,
 		Avatar,
-		type PopupSettings,
-		popup,
 		Toast,
 		initializeStores,
 		Drawer,
@@ -12,23 +12,14 @@
 		focusTrap
 	} from '@skeletonlabs/skeleton';
 	import { BarLoader } from 'svelte-loading-spinners';
-
-	// Highlight JS
 	import hljs from 'highlight.js/lib/core';
 	import 'highlight.js/styles/github-dark.css';
 	import { storeHighlightJs } from '@skeletonlabs/skeleton';
-	import xml from 'highlight.js/lib/languages/xml'; // for HTML
+	import xml from 'highlight.js/lib/languages/xml';
 	import css from 'highlight.js/lib/languages/css';
 	import javascript from 'highlight.js/lib/languages/javascript';
 	import typescript from 'highlight.js/lib/languages/typescript';
-
-	hljs.registerLanguage('xml', xml); // for HTML
-	hljs.registerLanguage('css', css);
-	hljs.registerLanguage('javascript', javascript);
-	hljs.registerLanguage('typescript', typescript);
-	storeHighlightJs.set(hljs);
-
-	// Floating UI for Popups
+	import ThemeSwitcher from '$lib/ThemeSwitcher.svelte';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import { goto } from '$app/navigation';
@@ -44,6 +35,12 @@
 	import Popup from '$lib/components/Popup.svelte';
 	import { __, languages } from '$lib/language';
 
+	hljs.registerLanguage('xml', xml);
+	hljs.registerLanguage('css', css);
+	hljs.registerLanguage('javascript', javascript);
+	hljs.registerLanguage('typescript', typescript);
+	storeHighlightJs.set(hljs);
+
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	initializeStores();
 
@@ -56,7 +53,6 @@
 	}
 
 	let showStickyNav = false;
-
 	let userSearchResults: { id: number; name: string }[] = [];
 	let userSearchQuery = '';
 	let userSearchTimeout: any;
@@ -101,6 +97,64 @@
 			});
 		}
 	});
+
+	function handleUserSearchResult(user) {
+		goto(`/u/${user.id}`);
+		drawerStore.close();
+		userSearchQuery = '';
+		userSearchResults = [];
+	}
+
+	function handleLanguageChange(langCode) {
+		userLanguage.set(langCode);
+	}
+
+	function handleNavOpen() {
+		drawerStore.open({
+			id: 'nav',
+			padding: 'p-4',
+			rounded: 'rounded-lg'
+		});
+	}
+
+	function handleSearchOpen() {
+		drawerStore.open({
+			id: 'search',
+			padding: 'pt-16 p-4',
+			bgBackdrop: 'bg-black/50',
+			position: 'top',
+			width: 'mx-auto w-full md:w-[800px]',
+			rounded: 'rounded-lg'
+		});
+	}
+
+	function handleSignIn() {
+		goto('/signin');
+	}
+
+	function handleSignUp() {
+		goto('/signup');
+	}
+
+	function handleProfile() {
+		goto(`/u/${$userData?.id}`);
+	}
+
+	function handleLogout() {
+		// Add logout logic here
+	}
+
+	function handleSettings() {
+		// Add settings logic here
+	}
+
+	function handleRequests() {
+		// Add requests logic here
+	}
+
+	function handleThemes() {
+		// Add themes logic here
+	}
 </script>
 
 <Toast />
@@ -121,17 +175,10 @@
 			<div class="overflow-y-auto">
 				<div class="flex flex-col gap-2">
 					{#each userSearchResults as user}
-						<!-- svelte-ignore a11y-click-events-have-key-events -->
-						<!-- svelte-ignore a11y-no-static-element-interactions -->
 						<div
 							class="flex items-center gap-2 p-1 rounded-lg cursor-pointer bg-surface-900 hover:bg-surface-700 transition-all"
 							transition:scale={{ start: 0.99, duration: 200 }}
-							on:click={() => {
-								goto(`/u/${user.id}`);
-								drawerStore.close();
-								userSearchQuery = '';
-								userSearchResults = [];
-							}}
+							on:click={() => handleUserSearchResult(user)}
 						>
 							<img src="{avatarUrl}/{user.id}" alt={user.name} class="w-10 h-10 rounded-lg" />
 							<p>{user.name}</p>
@@ -150,7 +197,7 @@
 		out:fade={{ duration: 500 }}
 	>
 		<div class="h-full flex flex-col justify-center items-center gap-2 bg-surface-900/80">
-			<BarLoader size="60" color="#fff" unit="px" duration="1s" />
+			<BarLoader size="60" color="#000" unit="px" duration="1s" />
 			<p class="text-xs font-light">
 				{__('This is taking longer than expected...', $userLanguage)}
 			</p>
@@ -158,9 +205,6 @@
 	</div>
 {/if}
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-missing-attribute -->
 <AppShell>
 	<svelte:fragment slot="header">
 		{#if ($page.data.url != '/signin' && $page.data.url != '/signup') || $page.status != 200}
@@ -169,10 +213,10 @@
 				in:fly={{ y: -15, duration: 200, delay: 200 }}
 				out:fly={{ y: -15, duration: 200 }}
 			>
-					<div class="mx-auto border {showStickyNav
-						? 'mt-2 w-[82%] bg-gradient-to-r from-[#000000] to-[#121212] rounded-lg border-surface-450'
-						: 'w-[100%] bg-gradient-to-r from-[#141414] to-[#121212] border-surface-700'}  transition-all duration-700 z-[9999]"
-						>
+				<div class="mx-auto border {showStickyNav
+					? 'mt-2 w-[82%] bg-gradient-to-r from-[#000000] to-[#121212] rounded-lg border-surface-450'
+					: 'w-[100%] bg-gradient-to-r from-[#141414] to-[#121212] border-surface-700'}  transition-all duration-700 z-[9999]"
+				>
 					<div class="flex p-2 px-4 flex-row justify-between items-center gap-2">
 						<a class="text-xl uppercase cursor-pointer mr-12" on:click={() => goto('/')}
 							>{appName}</a
@@ -215,15 +259,7 @@
 							</div>
 							<button
 								class="btn px-5 variant-ghost-surface"
-								on:click={() =>
-									drawerStore.open({
-										id: 'search',
-										padding: 'pt-16 p-4',
-										bgBackdrop: 'bg-black/50',
-										position: 'top',
-										width: 'mx-auto w-full md:w-[800px]',
-										rounded: 'rounded-lg'
-									})}
+								on:click={handleSearchOpen}
 							>
 								<Search class="pointer-events-none" size={18} />
 							</button>
@@ -239,7 +275,7 @@
 												{#if $userData}
 													<button
 														class="w-32 btn variant-filled-surface rounded-lg"
-														on:click={() => goto(`/u/${$userData?.id}`)}
+														on:click={handleProfile}
 														>{__('Profile', $userLanguage)}</button
 													>
 													<a class="w-32 btn variant-filled-surface rounded-lg" href="/logout"
@@ -251,14 +287,20 @@
 													<a class="w-32 btn variant-filled-surface rounded-lg" href="/requests"
 														>{__('Requests', $userLanguage)}</a
 													>
+													<a class="w-32 byn variant-filled-surface rounded-lg" href="/themes"
+														>{__('Themes', $userLanguage)}</a
+													>
 												{:else}
 													<button
 														class="w-32 btn variant-filled-surface rounded-lg"
-														on:click={() => goto('/signin')}>{__('Sign In', $userLanguage)}</button
+														on:click={handleSignIn}>{__('Sign In', $userLanguage)}</button
+													>
+													<a class="w-32 btn variant-filled-surface rounded-lg" href="/themes"
+														>{__('Themes', $userLanguage)}</a
 													>
 													<button
 														class="w-32 btn variant-filled-surface rounded-lg"
-														on:click={() => goto('/signup')}>{__('Sign Up', $userLanguage)}</button
+														on:click={handleSignUp}>{__('Sign Up', $userLanguage)}</button
 													>
 												{/if}
 											</div>
@@ -272,12 +314,7 @@
 							<div class="md:hidden">
 								<button
 									class="btn btn-icon variant-ghost-surface rounded-lg"
-									on:click={() =>
-										drawerStore.open({
-											id: 'nav',
-											padding: 'p-4',
-											rounded: 'rounded-lg'
-										})}
+									on:click={handleNavOpen}
 								>
 									<Menu class="pointer-events-none" />
 								</button>

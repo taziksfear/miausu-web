@@ -4,6 +4,7 @@
 	import { userData, userLanguage } from '$lib/storage';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
+	import '$lib/styles/themes.css';
 
 	const toastStore = getToastStore();
 

@@ -22,6 +22,7 @@
 	import { statusIntToString } from '$lib/beatmapStatus';
 	import { __ } from '$lib/language';
 	import { userLanguage } from '$lib/storage';
+	import '$lib/styles/themes.css';
 
 	/*TODO: maybe rework this at another time
 	 */

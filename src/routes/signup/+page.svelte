@@ -4,6 +4,7 @@
 	import { appName } from '$lib/env';
 	import { __ } from '$lib/language';
 	import { userData, userLanguage } from '$lib/storage';
+	import '$lib/styles/themes.css';
 	import {
 		ProgressRadial,
 		getToastStore,

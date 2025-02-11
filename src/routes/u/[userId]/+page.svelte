@@ -9,6 +9,8 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { queryParam } from 'sveltekit-search-params';
 	import Edit2 from 'svelte-feathers/Edit2.svelte';
+	import Check from 'svelte-feathers/Check.svelte';
+	import { enhance } from '$app/forms';
 	import type { Clan, PlayerStatus } from '$lib/types';
 	import { getClan, getPlayerStatus } from '$lib/api';
 	import { userData, userLanguage } from '$lib/storage';
@@ -22,6 +24,7 @@
 	import UserMostPlayed from '$lib/components/userMostPlayed.svelte';
 	import { Privileges, isDonator, privsToGroups } from '$lib/privs';
 	import Time, { dayjs } from 'svelte-time';
+	import '$lib/styles/themes.css';
 
 	export let data;
 	let clan: Clan | undefined;
@@ -208,6 +211,16 @@
 		if (currentType == type) return;
 		currentType = type;
 		await updateModeInt();
+	};
+
+	let isEditing = false;
+	let editedUserpage = data.user?.info.userpage_content;
+
+	const handleEditToggle = () => {
+		isEditing = !isEditing;
+		if (!isEditing) {
+			editedUserpage = data.user?.info.userpage_content;
+		}
 	};
 
 	onMount(async () => {
@@ -542,20 +555,74 @@
 					</div>
 				</div>
 				<div class="flex flex-col gap-2 bg-surface-800 p-7 py-2">
-					{#if data.userpage.length > 0}
-						<div class="card !bg-surface-700 w-full py-3 p-6">
-							<div class="flex flex-col gap-5">
+					<div class="card !bg-surface-700 w-full py-3 p-6 relative">
+						<div class="flex flex-col gap-5">
+							<div class="flex justify-between items-center">
 								<p
 									class="text-lg font-bold underline underline-offset-4 decoration-2 decoration-primary-400"
 								>
 									{__('me!', $userLanguage)}
 								</p>
-								<div class="w-full text-center userpage max-h-[550px] overflow-y-auto">
-									{@html data.userpage}
-								</div>
+								{#if $userData?.id == data.user.info.id}
+									{#if !isEditing}
+										<button 
+											class="btn btn-icon variant-filled-surface h-10 w-10 absolute top-2 right-2"
+											on:click={handleEditToggle}
+										>
+											<Edit2 class="pointer-events-none" size={20} />
+										</button>
+									{:else}
+										<div class="absolute top-2 right-2 flex gap-2">
+											<button 
+												class="btn btn-icon variant-filled-surface h-10 w-10"
+												on:click={handleEditToggle}
+											>
+												<Edit2 class="pointer-events-none" size={20} />
+											</button>
+											<form 
+												method="POST" 
+												action="?/updateUser page"
+												use:enhance={() => {
+													return async ({ update }) => {
+														await update({ reset: false });
+														isEditing = false;
+													};
+												}}
+											>
+												<input 
+													type="hidden" 
+													name="userpage" 
+													value={editedUserpage} 
+												/>
+												<button 
+													type="submit"
+													class="btn btn-icon variant-filled-primary h-10 w-10"
+												>
+													<Check class="pointer-events-none" size={20} />
+												</button>
+											</form>
+										</div>
+									{/if}
+								{/if}
 							</div>
+
+							{#if !isEditing}
+								<div class="w-full text-left userpage max-h-[550px] overflow-y-auto">
+									{#if data.userpage.length > 0}
+										{@html data.userpage}
+									{:else}
+										<p class="text-surface-400 italic">{__("....tazik was here....", $userLanguage)}</p>
+									{/if}
+								</div>
+							{:else}
+								<textarea 
+									class="textarea w-full min-h-[300px] bg-surface-600"
+									bind:value={editedUserpage}
+									placeholder={__('tazik was here', $userLanguage)}
+								></textarea>
+							{/if}
 						</div>
-					{/if}
+					</div>
 					<div class="card !bg-surface-700 w-full py-3 p-6">
 						<div class="flex flex-col gap-5">
 							<p
@@ -566,12 +633,23 @@
 							<div class="relative flex flex-col gap-5">
 								{#key currentModeInt}
 									<UserScores
+										title="Pinned Scores"
+										{currentMode}
+										{currentType}
+										userId={data.user.info.id}
+										scoreAmount={5}
+										scoresType="pinned"
+										currentUserId={$userData?.id}
+									/>
+
+									<UserScores
 										title="Best Performance"
 										{currentMode}
 										{currentType}
 										userId={data.user.info.id}
 										scoreAmount={5}
 										scoresType="best"
+										currentUserId={$userData?.id}
 									/>
 
 									<UserScores
@@ -581,6 +659,7 @@
 										userId={data.user.info.id}
 										scoreAmount={5}
 										scoresType="recent"
+										currentUserId={$userData?.id}
 									/>
 								{/key}
 							</div>
@@ -617,7 +696,7 @@
 			>
 				<div class="flex flex-col items-center justify-center">
 					<p class="text-4xl">404</p>
-					<p class="text-xl">{__('User Profile not found.', $userLanguage)}</p>
+					<p class="text-xl">{__('User  Profile not found.', $userLanguage)}</p>
 				</div>
 				<div class="flex flex-col items-center lg:items-start justify-normal lg:ps-20 gap-2">
 					<p class="text-lg font-semibold underline underline-offset-2">

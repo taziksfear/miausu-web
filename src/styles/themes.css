@@ -1,0 +1,64 @@
+/* src/styles/themes.css */
+:root {
+	/* Default theme (Skeleton) */
+    --color-primary: #3b82f6; /* Blue */
+    --color-secondary: #6b7280; /* Gray */
+    --color-background: #1f2937; /* Dark Gray */
+    --color-text: #f3f4f6; /* Light Gray */
+}
+
+[data-theme='modern'] {
+	/* Modern theme */
+    --color-primary: #10b981; /* Green */
+    --color-secondary: #6ee7b7; /* Light Green */
+    --color-background: #064e3b; /* Dark Green */
+    --color-text: #f0fdf4; /* Light Green */
+}
+
+[data-theme='rocket'] {
+	/* Rocket theme */
+    --color-primary: #f97316; /* Orange */
+    --color-secondary: #fb923c; /* Light Orange */
+    --color-background: #9a3412; /* Dark Orange */
+    --color-text: #fff7ed; /* Light Orange */
+}
+
+[data-theme='wintry'] {
+	/* Wintry theme */
+    --color-primary: #0ea5e9; /* Blue */
+    --color-secondary: #7dd3fc; /* Light Blue */
+    --color-background: #0c4a6e; /* Dark Blue */
+    --color-text: #f0f9ff; /* Light Blue */
+}
+
+[data-theme='vintage'] {
+	/* Vintage theme */
+    --color-primary: #a16207; /* Brown */
+    --color-secondary: #eab308; /* Yellow */
+    --color-background: #78350f; /* Dark Brown */
+    --color-text: #fef3c7; /* Light Yellow *
+}
+
+[data-theme='seafoam'] {
+	/* Seafoam theme */
+    --color-primary: #14b8a6; /* Teal */
+    --color-secondary: #2dd4bf; /* Light Teal */
+    --color-background: #f0fdfa; /* Light Teal */
+    --color-text: #134e4a; /* Dark Teal */
+}
+
+[data-theme='sahara'] {
+	/* Sahara theme */
+    --color-primary: #e11d48; /* Red */
+    --color-secondary: #fb7185; /* Light Red */
+    --color-background: #881337; /* Dark Red */
+    --color-text: #fff1f2; /* Light Red */
+}
+
+[data-theme='hamlindigo'] {
+	/* Hamlindigo theme */
+    --color-primary: #4f46e5; /* Indigo */
+    --color-secondary: #818cf8; /* Light Indigo */
+    --color-background: #3730a3; /* Dark Indigo */
+    --color-text: #eef2ff; /* Light Indigo */
+}

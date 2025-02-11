@@ -1,3 +1,8 @@
+/* src/app.postcss */
+/* Import themes */
+@import './styles/themes.css';
+
+/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,7 +14,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
-	background: linear-gradient(104deg, #000A0B 0%, #0F000F 100%);
+	background: var(--color-background); /* Use theme background */
 	background-attachment: fixed; /* Ensures the gradient covers the entire viewport */
 }
 
@@ -117,4 +122,51 @@ main,
 	margin-top: -41px;
 	min-width: 200px;
 	text-align: center;
+}
+
+
+select.theme-selector {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-color: #000000;
+	border: 1px solid #6b7280;
+	border-radius: 20px;
+	padding: 0.5rem 0.75rem;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	box-shadow: 0 0 #0000;
+	transition: all 0.2s ease;
+	color: #ffffff; /* Light text for dark background */
+}
+
+/* Hover state */
+select.theme-selector:hover {
+	background-color: #1a1a1a; /* Slightly lighter black on hover */
+}
+
+/* Active state */
+select.theme-selector:active {
+	background-color: #262626; /* Even lighter black on active */
+}
+
+/* Focus state */
+select.theme-selector:focus {
+	outline: none;
+	border-color: transparent;
+	box-shadow: 0 0 0 2px #3b82f6; /* Primary color for focus ring */
+}
+
+/* Dark mode styles */
+[data-mode='dark'] select.theme-selector {
+	background-color: #1a1a1a; /* Slightly lighter black for dark mode */
+	border-color: #4b5563; /* Darker border for dark mode */
+}
+
+[data-mode='dark'] select.theme-selector:hover {
+	background-color: #262626; /* Darker hover for dark mode */
+}
+
+[data-mode='dark'] select.theme-selector:active {
+	background-color: #333333; /* Darker active for dark mode */
 }

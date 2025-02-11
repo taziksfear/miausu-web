@@ -9,6 +9,7 @@ const language: Language = {
         Donate: 'Darowizna',
         'Save Changes': 'Zapisz zmiany',
         'Settings': 'Ustawienia',
+        'Themes': 'Motywy',
         'Requests': 'Zapytania',
         'New Password': 'Nowe hasło',
         'Current Password': 'Obecne hasło',

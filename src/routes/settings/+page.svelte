@@ -9,6 +9,7 @@
     import { usernameRegex } from '$lib/regex';
     import { page } from '$app/stores';
     import { appName } from '$lib/env';
+    import '$lib/styles/themes.css';
   
     export let data;
     export let form;

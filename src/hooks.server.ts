@@ -13,6 +13,7 @@ let redisClient:
 	  >
 	| undefined;
 
+// Function to get MySQL database connection
 export const getMySQLDatabase = async (): Promise<knex_pkg.Knex> => {
 	if (mysqlDatabase) return mysqlDatabase;
 	try {
@@ -35,6 +36,7 @@ export const getMySQLDatabase = async (): Promise<knex_pkg.Knex> => {
 	}
 };
 
+// Function to get Redis client
 export const getRedisClient = async (): Promise<
 	redis.RedisClientType<
 		redis.RedisDefaultModules & redis.RedisModules,
@@ -49,7 +51,7 @@ export const getRedisClient = async (): Promise<
 	const redisPort = env.REDIS_PORT ?? 6379;
 	const redisDb = env.REDIS_DB ?? 0;
 
-	//do regex check if redisDb is a valid number
+	// Validate Redis DB
 	if (/^\d+$/.test(redisDb.toString()) === false) {
 		console.log(chalk.red('Invalid Redis DB!'));
 		process.exit(1);
@@ -95,6 +97,20 @@ export const getRedisClient = async (): Promise<
 	}
 };
 
+// Function to handle errors
 export function handleError({ error }): void {
 	console.log(chalk.red((error as Error).stack ?? error));
 }
+
+// Handle function to inject theme into the HTML
+export const handle = async ({ event, resolve }) => {
+	// Get the theme from cookies or default to 'skeleton'
+	const theme = event.cookies.get('theme') || 'skeleton';
+
+	// Inject the theme into the <body> tag
+	return await resolve(event, {
+		transformPageChunk: ({ html }) => {
+			return html.replace('<body', `<body data-theme="${theme}"`);
+		}
+	});
+};
