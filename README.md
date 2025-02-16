@@ -21,6 +21,7 @@ miausu-web is a frontend web application developed using SvelteKit for the [banc
 - Npm
 - Redis
 - MySQL
+- nginx
 
 ## Getting Started
 
@@ -51,6 +52,26 @@ To get started with miausu-web, follow these steps:
 
    ```
    cp example.env .env
+   ```
+
+5. **NGINX Configuration:** Up until now you didn't have to launch the frontend, that's why you're getting the NGINX config here now, that should get everything working for you:
+
+   ```
+   server {
+    listen 80;
+    server_name example.com;
+    client_max_body_size 100m;
+
+    location / {
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $http_host;
+        proxy_set_header Origin http://$http_host;
+        add_header Access-Control-Allow-origin *;
+        proxy_redirect off;
+        proxy_pass http://127.0.0.1:5173;
+    }
+   }
    ```
 
 5. **Compile and run:** Compile and start the frontend:
