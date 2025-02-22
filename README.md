@@ -60,7 +60,6 @@ To get started with miausu-web, follow these steps:
 5. **Compile and run:** Compile and start the frontend:
 
    ```
-   npm run build
    npm run dev
    ```
 
