@@ -11,7 +11,7 @@
 	import '$lib/styles/themes.css';
 
 	const modes = ['osu', 'taiko', 'catch', 'mania'];
-	const types = ['vanilla', 'relax', 'autopilot'];
+	const types = ['vanilla', 'relax'];
 	const sorts = ['pp', 'tscore', 'plays'];
 
 	let currentLeaderboard: LBUser[] = [];
@@ -56,7 +56,6 @@
 		const urlParams = new URLSearchParams();
 
 		if (currentType == 'relax' && currentMode == 'mania') currentMode = 'osu';
-		if (currentType == 'autopilot' && currentMode != 'osu') currentMode = 'osu';
 
 		queryMode.set(currentMode);
 		queryType.set(currentType);
@@ -78,9 +77,6 @@
 		switch (currentType) {
 			case 'relax':
 				mode += 4;
-				break;
-			case 'autopilot':
-				mode += 8;
 				break;
 		}
 
@@ -200,19 +196,6 @@
 						disabled={currentMode == 'mania' || loading || failed}
 					>
 						Relax
-					</button>
-					<button
-						class="w-[100%] md:w-[25%] !scale-100 btn {currentType == 'autopilot'
-							? 'bg-surface-500'
-							: 'bg-surface-600'} rounded-lg rounded-l-none"
-						disabled={currentMode == 'taiko' ||
-							currentMode == 'catch' ||
-							currentMode == 'mania' ||
-							loading ||
-							failed}
-						on:click={() => setType('autopilot')}
-					>
-						Autopilot
 					</button>
 				</div>
 				<div class="w-full flex rounded-lg">

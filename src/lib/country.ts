@@ -179,7 +179,7 @@ const countryObject: { [key: string]: string } = {
 	QA: 'Qatar',
 	RE: 'Reunion',
 	RO: 'Romania',
-	RU: 'taziks country',
+	RU: 'Russian Federation',
 	RW: 'RWANDA',
 	SH: 'Saint Helena',
 	KN: 'Saint Kitts and Nevis',

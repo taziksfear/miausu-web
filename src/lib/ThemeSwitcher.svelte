@@ -29,12 +29,14 @@
 	bind:value={selectedTheme}
 	on:change={() => setTheme(selectedTheme)}
 >
-	<option value="skeleton">Skeleton</option>
-	<option value="modern">Modern</option>
-	<option value="rocket">Rocket</option>
-	<option value="wintry">Wintry</option>
-	<option value="vintage">Vintage</option>
-	<option value="seafoam">Seafoam</option>
-	<option value="sahara">Sahara</option>
-	<option value="hamlindigo">Hamlindigo</option>
+	<option value="skeleton">Default</option>
+	<option value="modern">Light Sea</option>
+	<option value="rocket">Ghost</option>
+	<option value="wintry">Deep Ocean</option>
+	<option value="vintage">Cartoon Rust</option>
+	<option value="seafoam">Light Sky</option>
+	<option value="crimson">Metal</option>
+	<option value="hamlindigo">Old Values</option>
+	<option value="gold-nouveau">Purple Party</option>
+	<option value="miausu">Deep Snow</option>
 </select>

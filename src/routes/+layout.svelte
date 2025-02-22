@@ -284,9 +284,9 @@
 													<a class="w-32 btn variant-filled-surface rounded-lg" href="/settings"
 														>{__('Settings', $userLanguage)}</a
 													>
-													<a class="w-32 btn variant-filled-surface rounded-lg" href="/requests"
+													<!--<a class="w-32 btn variant-filled-surface rounded-lg" href="/requests"
 														>{__('Requests', $userLanguage)}</a
-													>
+											>-->
 													<a class="w-32 byn variant-filled-surface rounded-lg" href="/themes"
 														>{__('Themes', $userLanguage)}</a
 													>

@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import { skeleton } from '@skeletonlabs/tw-plugin';
+import { miausu } from './miausu';
 
 export default {
 	darkMode: 'class',
@@ -33,8 +34,12 @@ export default {
 					{ name: 'wintry', enhancements: true },
 					{ name: 'vintage', enhancements: true },
 					{ name: 'seafoam', enhancements: true },
-					{ name: 'sahara', enhancements: true },
-					{ name: 'hamlindigo', enhancements: true }
+					{ name: 'hamlindigo', enhancements: true },
+					{ name: 'crimson', enhancements: true},
+					{ name: 'gold-nouveau', enhancements: true}
+				],
+				custom: [
+					miausu
 				]
 			}
 		})

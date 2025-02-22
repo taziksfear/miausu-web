@@ -1,10 +1,11 @@
 import DE from './languages/DE';
 import US from './languages/US';
+import ID from './languages/ID';
 import RU from './languages/RU';
 import JP from './languages/JP';
 import KR from './languages/KR';
-import VN from './languages/VN';
 import PL from './languages/PL';
+import VN from './languages/VN';
 
 export type Language = {
 	name: string;
@@ -14,7 +15,7 @@ export type Language = {
 	phrases: { [key: string]: string };
 };
 
-export const languages: Language[] = [US, DE, RU, JP, KR, VN, PL];
+export const languages: Language[] = [US, ID, DE, RU, JP, KR, PL, VN];
 
 export const getLanguage = (code: string) =>
 	languages.find((lang) => lang.code === code.toUpperCase()) ||

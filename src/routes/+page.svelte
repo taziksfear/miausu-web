@@ -15,9 +15,10 @@
 		<div class="h-full flex flex-col justify-center items-center text-center gap-5">
 			<div class="flex flex-col gap-10">
 				<h1 class="h1 font-bold">{appName}</h1>
-				<h4 class="h4">
-					an unrestricted Sandbox, Cheating, and Testing Server where the possibilities are endless in-game. From embracing the serene realms of Relax Cheats to venturing into uncharted territories
-				</h4>
+				<h5 class="h5">
+					an unrestricted Sandbox, Cheating, and Testing Server where the possibilities are endless in-game.
+					From embracing the serene realms of Relax Cheats to venturing into uncharted territories
+				</h5>
 			</div>
 			<div class="flex flex-row gap-3">
 				{#if $userData}

@@ -1,10 +1,10 @@
 /* src/styles/themes.css */
 :root {
 	/* Default theme (Skeleton) */
-    --color-primary: #3b82f6; /* Blue */
-    --color-secondary: #6b7280; /* Gray */
-    --color-background: #1f2937; /* Dark Gray */
-    --color-text: #f3f4f6; /* Light Gray */
+    --color-primary: #ff79c6; /* Pink */
+    --color-secondary: #6c0df0; /* Purple */
+    --color-background: #000000; /* Black */
+    --color-text: #c0c0c0; /* Light Gray */
 }
 
 [data-theme='modern'] {
@@ -47,12 +47,8 @@
     --color-text: #134e4a; /* Dark Teal */
 }
 
-[data-theme='sahara'] {
-	/* Sahara theme */
-    --color-primary: #e11d48; /* Red */
-    --color-secondary: #fb7185; /* Light Red */
-    --color-background: #881337; /* Dark Red */
-    --color-text: #fff1f2; /* Light Red */
+[data-theme='crimson'] {
+    --color-text: fff;
 }
 
 [data-theme='hamlindigo'] {

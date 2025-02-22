@@ -9,8 +9,6 @@
 	import { cubicInOut } from 'svelte/easing';
 	import { queryParam } from 'sveltekit-search-params';
 	import Edit2 from 'svelte-feathers/Edit2.svelte';
-	import Check from 'svelte-feathers/Check.svelte';
-	import { enhance } from '$app/forms';
 	import type { Clan, PlayerStatus } from '$lib/types';
 	import { getClan, getPlayerStatus } from '$lib/api';
 	import { userData, userLanguage } from '$lib/storage';
@@ -22,9 +20,12 @@
 	import { __ } from '$lib/language';
 	import UserRankBadges from '$lib/components/userRankBadges.svelte';
 	import UserMostPlayed from '$lib/components/userMostPlayed.svelte';
-	import { Privileges, isDonator, privsToGroups } from '$lib/privs';
+	import { Privileges, isDonator, privsToGroups, isStaff } from '$lib/privs';
 	import Time, { dayjs } from 'svelte-time';
-	import '$lib/styles/themes.css';
+	import Edit from 'svelte-feathers/Edit.svelte';
+	import Check from 'svelte-feathers/Check.svelte';
+	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
 
 	export let data;
 	let clan: Clan | undefined;
@@ -109,6 +110,12 @@
 		interpolate: (a, b) => (t) => Math.trunc(a + (b - a) * t)
 	});
 
+	let experiencePoints = tweened(0, {
+		duration: 500,
+		easing: cubicInOut,
+		interpolate: (a, b) => (t) => Math.trunc(a + (b - a) * t)
+	});
+
 	let playTime = tweened(0, {
 		duration: 500,
 		easing: cubicInOut,
@@ -146,12 +153,10 @@
 	});
 
 	const modes = ['osu', 'taiko', 'catch', 'mania'];
-	const types = ['vanilla', 'relax', 'autopilot'];
+	const types = ['vanilla', 'relax'];
 
 	const updateModeInt = async () => {
 		loading = true;
-		if (currentType == 'relax' && currentMode == 'mania') currentMode = 'osu';
-		if (currentType == 'autopilot' && currentMode != 'osu') currentMode = 'osu';
 
 		queryMode.set(currentMode);
 		queryType.set(currentType);
@@ -173,9 +178,6 @@
 			case 'relax':
 				mode += 4;
 				break;
-			case 'autopilot':
-				mode += 8;
-				break;
 		}
 		currentModeInt = mode;
 
@@ -191,6 +193,7 @@
 			maxCombo.set(data.user.stats[currentModeInt].max_combo);
 			replayViews.set(data.user.stats[currentModeInt].replay_views);
 			performancePoints.set(data.user.stats[currentModeInt].pp);
+			experiencePoints.set(data.user.stats[currentModeInt].xp);
 			playTime.set(data.user.stats[currentModeInt].playtime);
 			xhGrade.set(data.user.stats[currentModeInt].xh_count);
 			xGrade.set(data.user.stats[currentModeInt].x_count);
@@ -252,7 +255,7 @@
 	{/if}
 </svelte:head>
 <div class="container mx-auto w-full p-5">
-	{#if data.user?.info.id}
+	{#if isStaff($userData?.priv) || (data.user?.info.id && data.user?.info.priv & Privileges.VERIFIED)}
 		<div class="mx-auto card">
 			<div class="w-full flex flex-col">
 				<div class="overflow-hidden rounded-lg">
@@ -277,22 +280,9 @@
 										? 'bg-surface-500'
 										: 'bg-surface-600'} rounded-none"
 									on:click={() => setType('relax')}
-									disabled={currentMode == 'mania' || loading || failed}
+									disabled={loading || failed}
 								>
 									Relax
-								</button>
-								<button
-									class="w-[100%] md:w-[25%] !scale-100 btn {currentType == 'autopilot'
-										? 'bg-surface-500'
-										: 'bg-surface-600'} rounded-lg rounded-l-none"
-									disabled={currentMode == 'taiko' ||
-										currentMode == 'catch' ||
-										currentMode == 'mania' ||
-										loading ||
-										failed}
-									on:click={() => setType('autopilot')}
-								>
-									Autopilot
 								</button>
 							</div>
 							<div class="w-full flex rounded-lg">
@@ -310,7 +300,7 @@
 										? 'bg-surface-500'
 										: 'bg-surface-600'} rounded-none"
 									on:click={() => setMode('taiko')}
-									disabled={currentType == 'autopilot' || loading || failed}
+									disabled={loading || failed}
 								>
 									taiko
 								</button>
@@ -319,7 +309,7 @@
 										? 'bg-surface-500'
 										: 'bg-surface-600'} rounded-none"
 									on:click={() => setMode('catch')}
-									disabled={currentType == 'autopilot' || loading || failed}
+									disabled={loading || failed}
 								>
 									catch
 								</button>
@@ -328,10 +318,7 @@
 										? 'bg-surface-500'
 										: 'bg-surface-600'} rounded-lg rounded-l-none"
 									on:click={() => setMode('mania')}
-									disabled={currentType == 'relax' ||
-										currentType == 'autopilot' ||
-										loading ||
-										failed}
+									disabled={loading || failed}
 								>
 									mania
 								</button>
@@ -341,12 +328,12 @@
 				</div>
 				<div
 					class="relative h-28 md:h-64 bg-center bg-cover bg-no-repeat"
-					style="background-image: url('/u/{data.user.info.id}/cover');"
+					style="background-image: url('/u/{data.user?.info.id}/cover');"
 				>
 					{#if $userData?.id == data.user.info.id}
 						<a
 							class="btn btn-icon variant-filled-surface absolute flex justify-center items-center bottom-2 right-2 h-10 w-10"
-							href="/settings/cover"
+							href="/settings"
 						>
 							<Edit2 class="pointer-events-none" size={20} />
 						</a>
@@ -581,7 +568,7 @@
 											</button>
 											<form 
 												method="POST" 
-												action="?/updateUser page"
+												action="?/updateUserpage"
 												use:enhance={() => {
 													return async ({ update }) => {
 														await update({ reset: false });
@@ -611,14 +598,14 @@
 									{#if data.userpage.length > 0}
 										{@html data.userpage}
 									{:else}
-										<p class="text-surface-400 italic">{__("....tazik was here....", $userLanguage)}</p>
+										<p class="text-surface-400 italic">{__("this user hasn't set an about me! section yet", $userLanguage)}</p>
 									{/if}
 								</div>
 							{:else}
 								<textarea 
 									class="textarea w-full min-h-[300px] bg-surface-600"
 									bind:value={editedUserpage}
-									placeholder={__('tazik was here', $userLanguage)}
+									placeholder={__('write something about yourself...', $userLanguage)}
 								></textarea>
 							{/if}
 						</div>
@@ -633,7 +620,7 @@
 							<div class="relative flex flex-col gap-5">
 								{#key currentModeInt}
 									<UserScores
-										title="Pinned Scores"
+										title="pinned scores"
 										{currentMode}
 										{currentType}
 										userId={data.user.info.id}
@@ -649,6 +636,16 @@
 										userId={data.user.info.id}
 										scoreAmount={5}
 										scoresType="best"
+										currentUserId={$userData?.id}
+									/>
+
+									<UserScores
+										title="first place scores"
+										{currentMode}
+										{currentType}
+										userId={data.user.info.id}
+										scoreAmount={5}
+										scoresType="first"
 										currentUserId={$userData?.id}
 									/>
 
@@ -696,7 +693,7 @@
 			>
 				<div class="flex flex-col items-center justify-center">
 					<p class="text-4xl">404</p>
-					<p class="text-xl">{__('User  Profile not found.', $userLanguage)}</p>
+					<p class="text-xl">{__('User Profile not found.', $userLanguage)}</p>
 				</div>
 				<div class="flex flex-col items-center lg:items-start justify-normal lg:ps-20 gap-2">
 					<p class="text-lg font-semibold underline underline-offset-2">
