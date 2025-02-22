@@ -45,6 +45,10 @@ To get started with miausu-web, follow these steps:
    ```
    cd miausu-web
    npm i
+   npm install postcss-import --save-dev
+   npm install --save-dev cross-env
+   npm install --save-dev
+   npm install --save-dev vitest
    ```
 
 4. **Configure .env:** Copy the sample .env file to .env and configure it with the appropriate API endpoints and other settings:
